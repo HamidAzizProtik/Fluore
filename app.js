@@ -1,14 +1,25 @@
-// note that this code is temporary and only for testing
+let notes = [];
 
-const themeToggleBtn = document.getElementById('themeToggleBtn');
 
-themeToggleBtn.addEventListener('click', () => {
-    
-    document.body.classList.toggle('dark-theme');
-    
-    if (document.body.classList.contains('dark-theme')) {
-        themeToggleBtn.textContent = '🌅'; 
-    } else {
-        themeToggleBtn.textContent = '🌆'; 
-    }
+// note dialog code
+function openNoteDialog() {
+    const dialog = document.getElementById("noteDialog");
+    const titleInput = document.getElementById("noteTitle");
+    const contentInput = document.getElementById("noteContent");
+
+    dialog.showModal();
+    titleInput.focus(); // making dialog 
+}
+
+function closeNoteDialog() {
+    document.getElementById("noteDialog").close()
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.getElementById("noteDialog").addEventListener("click", function(event) {
+        if(event.target === this) {    // makes sure dialog closes if clicked in whitespace
+            closeNoteDialog();
+        }
+    });
 });
