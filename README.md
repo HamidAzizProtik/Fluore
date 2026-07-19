@@ -1,5 +1,6 @@
 # Fluore
 
+[![Website](https://img.shields.io/badge/Website-See_it_in_action-blue)](https://fluore.pages.dev)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 
 > A minimalist note-taking application designed for ultimate simplicity.
