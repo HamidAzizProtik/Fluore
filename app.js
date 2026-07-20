@@ -1,4 +1,5 @@
 let notes = [];
+let editingNoteId = null
 
 function loadNotes() {
     const savedNotes = localStorage.getItem("fluoreNotes");
@@ -11,12 +12,26 @@ function saveNote(event) {
     const title = document.getElementById("noteTitle").value.trim();
     const content = document.getElementById("noteContent").value.trim();
 
-    notes.unshift({
-        id: generateId(),
-        title: title,
-        content: content
-    })
+    if(editingNoteId) {
+        // update existing note
 
+        const noteIndex = notes.findIndex(note => note.id === editingNoteId)
+        notes[noteIndex] = {
+            ...notes[noteIndex],
+            title:title,
+            content: content
+        }
+    }
+
+    else {
+        notes.unshift({
+            id: generateId(),
+            title: title,
+            content: content
+        })
+    }
+
+    closeNoteDialog()
     saveNotes();
     renderNotes(); // re-renders notes so that we dont have to refresh after making a note
 }
@@ -27,6 +42,12 @@ function generateId() {
 
 function saveNotes() {
     localStorage.setItem("fluoreNotes", JSON.stringify(notes))
+}
+
+function deleteNote(noteId) {
+    notes = notes.filter(note => note.id !== noteId);
+    saveNotes();
+    renderNotes();
 }
 
 function renderNotes() {
@@ -65,10 +86,26 @@ function renderNotes() {
 }
 
 // note dialog code
-function openNoteDialog() {
+function openNoteDialog(noteId = null) {
     const dialog = document.getElementById("noteDialog");
     const titleInput = document.getElementById("noteTitle");
     const contentInput = document.getElementById("noteContent");
+
+    if(noteId) {
+        // edit note
+        const noteToEdit = notes.find(note => note.id === noteId)
+        editingNoteId = noteId
+        document.getElementById('dialogTitle').textContent = 'Edit Note'
+        titleInput.value = noteToEdit.title
+        contentInput.value = noteToEdit.content
+    }
+    else {
+        // add note
+        editingNoteId = null
+        document.getElementById('dialogTitle').textContent = 'Add New Note'
+        titleInput.value = ''
+        contentInput.value = ''
+    }
 
     dialog.showModal();
     titleInput.focus(); // making dialog 
@@ -78,13 +115,29 @@ function closeNoteDialog() {
     document.getElementById("noteDialog").close();
 }
 
+function ToggleTheme() {
+    const isDark = document.body.classList.toggle('dark-theme');
+    localStorage.setItem('theme',isDark ? 'dark' : 'light');
+    document.getElementById('themeToggleBtn').textContent = isDark ? '🏙️' : '🌆'
+}
+
+function applyStoredTheme() {
+    if(localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-theme')
+        document.getElementById('themeToggleBtn').textContent = '🏙️'
+    }
+}
+
 //* updates
 document.addEventListener("DOMContentLoaded", function() {
+
+    applyStoredTheme()
 
     notes = loadNotes() // loads notes
     renderNotes() //* updates note rendering function
 
     document.getElementById("noteForm").addEventListener("submit", saveNote)
+    document.getElementById('themeToggleBtn').addEventListener('click', ToggleTheme)
 
     document.getElementById("noteDialog").addEventListener("click", function(event) {
         if(event.target === this) {    // makes sure dialog closes if clicked in whitespace
