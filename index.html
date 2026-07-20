@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fluore</title>
+
+    <meta name="google-site-verification" content="DSH0HZp0ZJgHmGOEcTpcjYUxs8lS-x4-sncp4mgwa3U" />
+
+    <script
+    src="https://js.sentry-cdn.com/c8f91f87a39161efba118c9aa3c41ac3.min.js"
+    crossorigin="anonymous"
+    ></script>
+
+    <script>
+    Sentry.onLoad(function() {
+        Sentry.init({
+        // Tracing
+        tracesSampleRate: 1.0, // Capture 100% of the transactions
+        });
+    });
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
 </head>
