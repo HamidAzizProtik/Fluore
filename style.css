@@ -40,7 +40,7 @@ body {
 }
 
 h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 button, input, textarea {
@@ -52,6 +52,13 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .add-note-btn, .cancel-btn, .save-btn {
@@ -76,17 +83,34 @@ header {
   background: var(--surface-color);
   color: var(--text-color);
   border: 1px solid var(--surface-color);
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-  margin-left: 1rem;
+  margin-left: 0;
 }
 
 .theme-toggle-btn:hover {
   background: var(--brand-color);
   color: white;
+}
+
+.search-bar {
+  flex: 1; 
+  max-width: 400px;
+  margin: 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--surface-color);
+  border-radius: 0.5rem;
+  background: var(--base-color);
+  color: var(--text-color);
+  transition: border-color 0.2s ease;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--brand-color);
 }
 
 .notes-grid {
@@ -274,4 +298,46 @@ dialog::backdrop {
 .empty-state p {
   font-size: 1rem;
   margin-bottom: 2rem;
+}
+
+/* Fix mobile layout */
+@media (max-width: 600px) {
+  body {
+    margin: 1rem; 
+  }
+
+  header {
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  header h1 {
+    order: 1;
+    font-size: 1.5rem;
+  }
+
+  .header-actions {
+    order: 2;
+    display: flex;
+    align-items: center;
+  }
+
+  .add-note-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .theme-toggle-btn {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .search-bar {
+    order: 3; 
+    margin: 0.5rem 0 0 0;
+    max-width: 100%;
+    width: 100%;
+  }
 }

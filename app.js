@@ -50,22 +50,46 @@ function deleteNote(noteId) {
     renderNotes();
 }
 
-function renderNotes() {
+function renderNotes(searchTerm = "") {
     const notesContainer = document.getElementById("notesContainer");
 
     if(notes.length === 0) {
-        // show some fallback elements for empty space
         notesContainer.innerHTML = `
         <div class="empty-state">
             <h2>Ready to plan your next step?</h2>
             <button class="add-note-btn" onclick="openNoteDialog()">+ Add your first note</button>
         </div>
-        `
-        return
+        `;
+        return;
     }
 
-    // displaying notes
-    notesContainer.innerHTML = notes.map(note => `
+    const cleanSearch = searchTerm.trim();
+
+    const filteredNotes = notes.filter(note => 
+        note.title.toLowerCase().includes(cleanSearch.toLowerCase())
+    );
+
+    if(filteredNotes.length === 0) {
+        const suggestedNote = notes.find(note => 
+            note.title.toLowerCase().startsWith(cleanSearch.charAt(0).toLowerCase()) ||
+            note.content.toLowerCase().includes(cleanSearch.toLowerCase())
+        );
+
+        const suggestionHTML = suggestedNote 
+            ? `<p>Did you mean <strong>"${suggestedNote.title}"</strong>?</p>`
+            : `<p>Check for typos or try searching with a different keyword.</p>`;
+
+        notesContainer.innerHTML = `
+        <div class="empty-state">
+            <h2>No notes found for "${cleanSearch}"</h2>
+            ${suggestionHTML}
+            <button class="add-note-btn" style="margin-top: 1rem;" onclick="openNoteDialog()">+ Create "${cleanSearch}"</button>
+        </div>
+        `;
+        return;
+    }
+
+    notesContainer.innerHTML = filteredNotes.map(note => `
         <div class="note-card">
             <h3 class="note-title">${note.title}</h3>
             <p class="note-content">${note.content}</p>
@@ -82,7 +106,7 @@ function renderNotes() {
                 </button>
             </div>
         </div>
-        `).join('')
+        `).join('');
 }
 
 // note dialog code
@@ -143,5 +167,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if(event.target === this) {    // makes sure dialog closes if clicked in whitespace
             closeNoteDialog();
         }
+    });
+
+    document.getElementById("searchInput").addEventListener("input", function(event) {
+        renderNotes(event.target.value); 
     });
 });
