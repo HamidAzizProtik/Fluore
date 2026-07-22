@@ -11,6 +11,7 @@ function saveNote(event) {
 
     const title = document.getElementById("noteTitle").value.trim();
     const content = document.getElementById("noteContent").value.trim();
+    const color = document.getElementById("noteColor").value;
 
     if(editingNoteId) {
         // update existing note
@@ -19,7 +20,8 @@ function saveNote(event) {
         notes[noteIndex] = {
             ...notes[noteIndex],
             title:title,
-            content: content
+            content: content,
+            color: color
         }
     }
 
@@ -27,7 +29,8 @@ function saveNote(event) {
         notes.unshift({
             id: generateId(),
             title: title,
-            content: content
+            content: content,
+            color: color
         })
     }
 
@@ -90,7 +93,7 @@ function renderNotes(searchTerm = "") {
     }
 
     notesContainer.innerHTML = filteredNotes.map(note => `
-        <div class="note-card">
+        <div class="note-card" style="background-color: ${note.color || 'var(--surface-color)'};">
             <h3 class="note-title">${note.title}</h3>
             <p class="note-content">${note.content}</p>
             <div class="note-actions">
@@ -114,6 +117,7 @@ function openNoteDialog(noteId = null) {
     const dialog = document.getElementById("noteDialog");
     const titleInput = document.getElementById("noteTitle");
     const contentInput = document.getElementById("noteContent");
+    const colorSelect = document.getElementById("noteColor");
 
     if(noteId) {
         // edit note
@@ -122,6 +126,8 @@ function openNoteDialog(noteId = null) {
         document.getElementById('dialogTitle').textContent = 'Edit Note'
         titleInput.value = noteToEdit.title
         contentInput.value = noteToEdit.content
+
+        colorSelect.value = noteToEdit.color || "";
     }
     else {
         // add note
@@ -129,6 +135,8 @@ function openNoteDialog(noteId = null) {
         document.getElementById('dialogTitle').textContent = 'Add New Note'
         titleInput.value = ''
         contentInput.value = ''
+
+        colorSelect.value = "";
     }
 
     dialog.showModal();

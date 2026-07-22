@@ -341,3 +341,19 @@ dialog::backdrop {
     width: 100%;
   }
 }
+
+/* Ensure dark text on cards with light pastel backgrounds */
+.note-card[style*="background-color: #"],
+.note-card[style*="background-color:#"] {
+  color: #36302a;
+}
+
+.note-card[style*="background-color: #"] .note-title,
+.note-card[style*="background-color:#"] .note-title {
+  color: #36302a;
+}
+
+.note-card[style*="background-color: #"] .note-content,
+.note-card[style*="background-color:#"] .note-content {
+  color: #524336;
+}
