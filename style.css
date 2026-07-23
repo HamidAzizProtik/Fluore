@@ -83,12 +83,14 @@ header {
   background: var(--surface-color);
   color: var(--text-color);
   border: 1px solid var(--surface-color);
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.8rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 500;
   transition: all 0.2s ease;
-  margin-left: 0;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-toggle-btn:hover {
