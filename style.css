@@ -80,18 +80,19 @@ header {
 }
 
 .theme-toggle-btn {
-  background: var(--surface-color);
-  color: var(--text-color);
-  border: 1px solid var(--surface-color);
-  padding: 0.75rem 1rem; 
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  
+  height: 42px;
+  width: 42px;
+  padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  background: var(--surface-color);
+  color: var(--text-color);
+  border: 1px solid var(--surface-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 0;
 }
 
 .theme-toggle-btn svg {
