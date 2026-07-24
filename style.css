@@ -107,7 +107,7 @@ header {
 }
 
 .search-bar {
-  flex: 1; 
+  flex: 1 0 100%; 
   max-width: 400px;
   margin: 0 1rem;
   padding: 0.75rem 1rem;
