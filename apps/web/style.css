@@ -312,3 +312,16 @@ hr.divider {
 .github-btn:active {
     transform: scale(0.98);
 }
+
+@media (max-width: 768px) {
+    .introduction {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 3rem 1.5rem;
+    }
+
+    .intro-text {
+        align-items: center;
+        text-align: center;
+    }
+}
