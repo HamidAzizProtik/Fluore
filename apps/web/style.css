@@ -148,10 +148,22 @@ hr.divider {
 }
 
 .theme-switch {
-    background-color: var(--surface-color);
+    background-color: var(--brand-color);
     width: 36px; 
     cursor: pointer;
     flex-shrink: 0;
+}
+
+#themeToggleBtn svg:first-child {
+    display: none;
+}
+
+.dark-theme #themeToggleBtn svg:last-child {
+    display: none;
+}
+
+.dark-theme #themeToggleBtn svg:first-child {
+    display: block;
 }
 
 .login {
